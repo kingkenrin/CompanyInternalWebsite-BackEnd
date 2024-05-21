@@ -1,6 +1,6 @@
 const NhanVienService = require('../services/nhanVien.service')
 
-class MovieController {
+class NhanVienController {
     getAllNhanVien = async (req, res, next) => {
         try {
             return res.status(201).json(await NhanVienService.getAllNhanVien())
@@ -8,6 +8,38 @@ class MovieController {
             next(error)
         }
     }
+
+    getNhanVienById = async (req, res, next) => {
+        try {
+            return res.status(201).json(await NhanVienService.getNhanVienById(req.params))
+        } catch (error){
+            next(error)
+        }
+    }
+
+    addNhanVien = async (req, res, next) => {
+        try {
+            return res.status(201).json(await NhanVienService.addNhanVien(req.body))
+        } catch (error){
+            next(error)
+        }
+    }
+
+    updateNhanVien = async (req, res, next) => {
+        try {
+            return res.status(201).json(await NhanVienService.updateNhanVien(req.body))
+        } catch (error){
+            next(error)
+        }
+    }
+
+    deleteNhanVien = async (req, res, next) => {
+        try {
+            return res.status(201).json(await NhanVienService.deleteNhanVien(req.body))
+        } catch (error){
+            next(error)
+        }
+    }
 }
 
-module.exports = new MovieController();
+module.exports = new NhanVienController();

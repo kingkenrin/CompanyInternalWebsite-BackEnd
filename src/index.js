@@ -18,7 +18,7 @@ app.use(morgan("combined"))
 require('./databases/init.mongodb')
 
 // routes
-// app.use('/', require('./routes'))
+app.use('/', require('./routes'))
 
 // check 404 error
 app.use((req, res, next) => {

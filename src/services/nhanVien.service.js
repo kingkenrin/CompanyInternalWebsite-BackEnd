@@ -7,7 +7,10 @@ class NhanVienService {
         try {
             const nhanVien = await nhanVienModel.find({})
 
-            return nhanVien
+            return nhanVien.map(nv =>
+                getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: nv })
+            )
+
         } catch (error) {
             return {
                 success: false,
@@ -16,11 +19,18 @@ class NhanVienService {
         }
     }
 
-    static getNhanVienById = async ({id}) => {
+    static getNhanVienById = async ({ id }) => {
         try {
             const nhanVien = await nhanVienModel.findById(id)
 
-            return nhanVien
+            if (!nhanVien) {
+                return {
+                    success: false,
+                    message: "Nhan vien khong ton tai"
+                }
+            }
+
+            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: nhanVien })
         } catch (error) {
             return {
                 success: false,
@@ -29,11 +39,13 @@ class NhanVienService {
         }
     }
 
-    static addNhanVien = async ({ ten, avartar, ngaySinh, soDienThoai, phongBan, truongPhong = false }) => {
+    static addNhanVien = async ({ taiKhoan, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
             const newNhanVien = new nhanVienModel({
+                "taiKhoan": taiKhoan,
+                "matKhau": matKhau,
                 "ten": ten,
-                "avartar": avartar,
+                "avatar": avatar,
                 "ngaySinh": ngaySinh,
                 "soDienThoai": soDienThoai,
                 "phongBan": phongBan,
@@ -42,7 +54,7 @@ class NhanVienService {
 
             const savedNhanVien = await newNhanVien.save()
 
-            return savedNhanVien
+            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: savedNhanVien })
         } catch (error) {
             return {
                 success: false,
@@ -51,12 +63,14 @@ class NhanVienService {
         }
     }
 
-    static updateNhanVien = async ({ id, ten, avartar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static updateNhanVien = async ({ id, taiKhoan, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
             const nhanVien = await nhanVienModel.findById(id)
 
+            nhanVien.taiKhoan = taiKhoan
+            nhanVien.matKhau = matKhau
             nhanVien.ten = ten
-            nhanVien.avartar = avartar
+            nhanVien.avatar = avatar
             nhanVien.ngaySinh = ngaySinh
             nhanVien.soDienThoai = soDienThoai
             nhanVien.phongBan = phongBan
@@ -77,7 +91,7 @@ class NhanVienService {
         try {
             const nhanVien = await nhanVienModel.findByIdAndDelete(id)
 
-            if(!nhanVien){
+            if (!nhanVien) {
                 return {
                     success: false,
                     message: "Nhan vien khong ton tai"
