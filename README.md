@@ -1,3 +1,2 @@
 - Tải package: npm i
 - Chạy server: npm start (npm --watch start)
-- API DOCS: http://localhost:8081/docs
