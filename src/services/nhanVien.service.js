@@ -26,7 +26,7 @@ class NhanVienService {
             if (!nhanVien) {
                 return {
                     success: false,
-                    message: "Nhan vien khong ton tai"
+                    message: "wrong employee"
                 }
             }
 
@@ -67,10 +67,9 @@ class NhanVienService {
         try {
             const nhanVien = await nhanVienModel.findById(id)
 
-            nhanVien.taiKhoan = taiKhoan
             nhanVien.matKhau = matKhau
             nhanVien.ten = ten
-            nhanVien.avatar = avatar
+            // nhanVien.avatar = avatar
             nhanVien.ngaySinh = ngaySinh
             nhanVien.soDienThoai = soDienThoai
             nhanVien.phongBan = phongBan
@@ -78,7 +77,7 @@ class NhanVienService {
 
             const savedNhanVien = await nhanVien.save()
 
-            return savedNhanVien
+            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: savedNhanVien })
         } catch (error) {
             return {
                 success: false,
@@ -94,13 +93,13 @@ class NhanVienService {
             if (!nhanVien) {
                 return {
                     success: false,
-                    message: "Nhan vien khong ton tai"
+                    message: "wrong employee"
                 }
             }
 
             return {
                 success: true,
-                message: "Xoa thanh cong"
+                message: "delete successfully"
             }
         } catch (error) {
             return {
