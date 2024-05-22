@@ -41,6 +41,15 @@ class NhanVienService {
 
     static addNhanVien = async ({ taiKhoan, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
+            const nhanVien = await nhanVienModel.find({ taiKhoan: taiKhoan })
+
+            if (nhanVien) {
+                return {
+                    success: false,
+                    message: "username exists"
+                }
+            }
+
             const newNhanVien = new nhanVienModel({
                 "taiKhoan": taiKhoan,
                 "matKhau": matKhau,
@@ -63,17 +72,36 @@ class NhanVienService {
         }
     }
 
-    static updateNhanVien = async ({ id, taiKhoan, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static updateNhanVien = async ({ id, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
             const nhanVien = await nhanVienModel.findById(id)
 
-            nhanVien.matKhau = matKhau
-            nhanVien.ten = ten
+            if (!nhanVien) {
+                return {
+                    success: false,
+                    message: "wrong employee"
+                }
+            }
+
+            if (!matKhau)
+                nhanVien.matKhau = matKhau
+
+            if (!ten)
+                nhanVien.ten = ten
+            //if (!avatar)
             // nhanVien.avatar = avatar
-            nhanVien.ngaySinh = ngaySinh
-            nhanVien.soDienThoai = soDienThoai
-            nhanVien.phongBan = phongBan
-            nhanVien.truongPhong = truongPhong
+
+            if (!ngaySinh)
+                nhanVien.ngaySinh = ngaySinh
+
+            if (!soDienThoai)
+                nhanVien.soDienThoai = soDienThoai
+
+            if (!phongBan)
+                nhanVien.phongBan = phongBan
+
+            if (!truongPhong)
+                nhanVien.truongPhong = truongPhong
 
             const savedNhanVien = await nhanVien.save()
 

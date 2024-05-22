@@ -41,6 +41,15 @@ class PhongHopService {
 
     static addPhongHop = async ({ ten }) => {
         try {
+            const phongHop = await phongHopModel.find({ ten: ten })
+
+            if (phongHop) {
+                return {
+                    success: false,
+                    message: "meeting room exists"
+                }
+            }
+
             const newPhongHop = new phongHopModel({
                 "ten": ten,
             })
@@ -60,7 +69,15 @@ class PhongHopService {
         try {
             const phongHop = await phongHopModel.findById(id)
 
-            phongHop.ten = ten
+            if (!phongHop) {
+                return {
+                    success: false,
+                    message: "wrong meeting room"
+                }
+            }
+
+            if (!ten)
+                phongHop.ten = ten
 
             const savedPhongHop = await phongHop.save()
 
@@ -146,7 +163,7 @@ class PhongHopService {
         }
     }
 
-    static deleteNgayPhongHop = async ({ id, nhanVienId, ngayDangKy }) => {
+    static deleteNgayPhongHop = async ({ id, ngayDangKy }) => {
         try {
             //10/5/2003
             const time = ngayDangKy.split('/')
@@ -174,14 +191,7 @@ class PhongHopService {
             })
 
             if (flag) {
-                if(nhanVienId != phongHop.lichDangKy[index].nhanVienId){
-                    return {
-                        success: false,
-                        message: "do not have permission"
-                    }
-                }
-
-                phongHop.lichDangKy.splice(index,1)
+                phongHop.lichDangKy.splice(index, 1)
                 await phongHop.save()
 
                 return {
@@ -189,12 +199,10 @@ class PhongHopService {
                     message: "delete day successfully"
                 }
             }
-            else {
-                phongHop.lichDangKy.unshift(ngayMuonDangKy)
-                await phongHop.save()
+            else{
                 return {
-                    success: true,
-                    message: "add day successfully"
+                    success: false,
+                    message: "day does not exists"
                 }
             }
         } catch (error) {

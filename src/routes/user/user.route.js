@@ -2,13 +2,14 @@ const express = require('express')
 const NhanVienController = require('../../controllers/nhanVien.controller')
 const truyCapController = require('../../controllers/truyCap.controller')
 const phongHopController = require('../../controllers/phongHop.controller')
+const thongBaoNoiBoController = require('../../controllers/thongBaoNoiBo.controller')
 
 const router = express.Router()
 
-//Dang nhap
+//DANGNHAP
 router.get('/login', truyCapController.login)
 
-//NhanVien
+//NHANVIEN
 //[GET] Lay nhan vien theo id
 router.get('/getNhanVien/:id', NhanVienController.getNhanVienById)
 
@@ -35,15 +36,34 @@ router.get('/getPhongHop/:id', phongHopController.getPhongHopById)
 router.post('/addPhongHop', phongHopController.addPhongHop)
 
 //[PUT] Sua phong hop
-router.post('/updatePhongHop', phongHopController.updatePhongHop)
+router.put('/updatePhongHop', phongHopController.updatePhongHop)
 
 //[DELETE] Xoa phong hop
-router.post('/deletePhongHop', phongHopController.deletePhongHop)
+router.delete('/deletePhongHop', phongHopController.deletePhongHop)
 
 //[POST] Them ngay phong hop
 router.post('/addNgayPhongHop', phongHopController.addNgayPhongHop)
 
 //[DELETE] Xoa phong hop
-router.post('/deleteNgayPhongHop', phongHopController.deleteNgayPhongHop)
+router.delete('/deleteNgayPhongHop', phongHopController.deleteNgayPhongHop)
+
+//THONGBAONOIBO
+//[GET] Lay tat ca thong bao
+router.get('/getAllThongBao', thongBaoNoiBoController.getAllThongBao)
+
+//[GET] Lay thong bao theo id
+router.get('/getThongBao/:id', thongBaoNoiBoController.getThongBaoById)
+
+//[POST] Them thong bao
+router.post('/addThongBao', thongBaoNoiBoController.addThongBao)
+
+//[PUT] Sua thong bao
+router.put('/updateThongBao', thongBaoNoiBoController.updateThongBao)
+
+//[DELETE] Xoa thong bao
+router.delete('/deleteThongBao', thongBaoNoiBoController.deleteThongBao)
+
+//YEUCAU
+
 
 module.exports = router

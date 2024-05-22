@@ -17,10 +17,10 @@ var thongBaoNoiBoSchema = new Schema({
         type: String,
         required: true,
     },
-    ngayThongBao: {
-        type: Date,
-        required: true,
-    },
+    // ngayThongBao: {
+    //     type: Date,
+    //     required: true,
+    // },
 }, {
     timestamps: true,
     collection: COLLECTION_NAME

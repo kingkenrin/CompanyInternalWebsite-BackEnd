@@ -51,7 +51,7 @@ class PhongHopController {
 
     deleteNgayPhongHop = async (req, res, next) => {
         try {
-            return res.status(201).json(await PhongHopService.deleteNgayPhongHop(req.params))
+            return res.status(201).json(await PhongHopService.deleteNgayPhongHop(req.body))
         } catch (error) {
             next(error)
         }
