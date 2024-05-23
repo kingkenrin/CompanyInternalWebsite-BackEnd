@@ -41,7 +41,6 @@ class NhanVienService {
 
     static addNhanVien = async (file, { taiKhoan, matKhau,email, ten, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
-            console.log(file)
             const time = ngaySinh.split('/')
             const ngaySinhTemp = new Date(time[2], time[1] - 1, time[0])
 

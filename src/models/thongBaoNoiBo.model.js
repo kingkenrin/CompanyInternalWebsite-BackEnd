@@ -17,7 +17,7 @@ var thongBaoNoiBoSchema = new Schema({
         type: String,
         required: true,
     },
-    type: {
+    loai: {
         type: String,
         required: true,
         enum: ["Chung", "PhongHop","Nghi"]

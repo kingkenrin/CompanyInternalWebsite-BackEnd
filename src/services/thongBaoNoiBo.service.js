@@ -9,7 +9,7 @@ class ThongBaoNoiBoService {
             // const thongBao = await thongBaoNoiBoModel.find({}).populate('nhanVienId')
 
             return thongBao.map(tb =>
-                getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung' , 'createdAt'], object: tb })
+                getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung' ,'loai', 'createdAt'], object: tb })
             )
 
         } catch (error) {
@@ -31,7 +31,7 @@ class ThongBaoNoiBoService {
                 }
             }
 
-            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung' , 'createdAt'], object: thongBao })
+            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung' ,'loai', 'createdAt'], object: thongBao })
         } catch (error) {
             return {
                 success: false,
@@ -40,7 +40,7 @@ class ThongBaoNoiBoService {
         }
     }
 
-    static addThongBao = async ({ nhanVienId, ten, noiDung, type }) => {
+    static addThongBao = async ({ nhanVienId, ten, noiDung, loai }) => {
         try {
             const thongBao = await thongBaoNoiBoModel.findOne({ ten: ten })
 
@@ -55,12 +55,12 @@ class ThongBaoNoiBoService {
                 ten,
                 nhanVienId, 
                 noiDung,
-                type
+                loai
             })
 
             const savedThongBao = await newThongBao.save()
 
-            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung','createdAt'], object: savedThongBao })
+            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung','loai','createdAt'], object: savedThongBao })
         } catch (error) {
             return {
                 success: false,
@@ -69,7 +69,7 @@ class ThongBaoNoiBoService {
         }
     }
 
-    static updateThongBao = async ({ id, ten, noiDung, type }) => {
+    static updateThongBao = async ({ id, ten, noiDung, loai }) => {
         try {
             const thongBao = await thongBaoNoiBoModel.findById(id)
 
@@ -86,12 +86,12 @@ class ThongBaoNoiBoService {
             if (noiDung)
                 thongBao.noiDung = noiDung
 
-            if (type)
-                thongBao.noiDung = noiDung
+            if (loai)
+                thongBao.loai = loai
 
             const savedThongBao = await thongBao.save()
 
-            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung','createdAt'], object: savedThongBao })
+            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung','loai','createdAt'], object: savedThongBao })
         } catch (error) {
             return {
                 success: false,
