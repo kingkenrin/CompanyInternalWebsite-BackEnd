@@ -40,7 +40,7 @@ class YeuCauService {
 
     static addYeuCau = async ({ ten, noiDung }) => {
         try {
-            const yeuCau = await yeuCauModel.find({ ten: ten })
+            const yeuCau = await yeuCauModel.findOne({ ten: ten })
 
             if (yeuCau) {
                 return {
@@ -76,10 +76,10 @@ class YeuCauService {
                 }
             }
 
-            if (!ten)
+            if (ten)
                 yeuCau.ten = ten
 
-            if (!noiDung)
+            if (noiDung)
                 yeuCau.noiDung = noiDung
 
             const savedYeuCau = await yeuCau.save()

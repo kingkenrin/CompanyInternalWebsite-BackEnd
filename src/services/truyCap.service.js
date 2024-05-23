@@ -5,7 +5,7 @@ const _ = require('lodash');
 class TruyCapService {
     static login = async ({taiKhoan, matKhau}) => {
         try {
-            const nhanVien = await nhanVienModel.find({taiKhoan: taiKhoan})
+            const nhanVien = await nhanVienModel.findOne({taiKhoan: taiKhoan})
 
             if(!nhanVien){
                 return {    

@@ -19,7 +19,8 @@ class NhanVienController {
 
     addNhanVien = async (req, res, next) => {
         try {
-            return res.status(201).json(await NhanVienService.addNhanVien(req.body))
+            console.log(req.file)
+            return res.status(201).json(await NhanVienService.addNhanVien(req.file.path, req.body))
         } catch (error){
             next(error)
         }

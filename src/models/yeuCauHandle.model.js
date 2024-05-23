@@ -14,9 +14,13 @@ var yeuCauHandleSchema = new Schema({
         ref: 'NhanVien',
         require: true
     },
+    noiDung:{
+        type: String,
+        require: true
+    },
     pheDuyet: {
         type: Boolean,
-        default: false,
+        default: undefined,
     },
     phanHoi: {
         type: String,

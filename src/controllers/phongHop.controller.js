@@ -11,7 +11,7 @@ class PhongHopController {
 
     getPhongHopById = async (req, res, next) => {
         try {
-            return res.status(201).json(await PhongHopService.getPhongHopById(req.params))
+            return res.status(201).json(await PhongHopService.getPhongHopById(req.query))
         } catch (error) {
             next(error)
         }

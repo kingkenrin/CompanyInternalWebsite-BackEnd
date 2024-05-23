@@ -39,9 +39,12 @@ class NhanVienService {
         }
     }
 
-    static addNhanVien = async ({ taiKhoan, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static addNhanVien = async (filePath, { taiKhoan, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
-            const nhanVien = await nhanVienModel.find({ taiKhoan: taiKhoan })
+            const time = ngaySinh.split('/')
+            const ngaySinhTemp = new Date(time[2], time[1] - 1, time[0])
+
+            const nhanVien = await nhanVienModel.findOne({ taiKhoan: taiKhoan })
 
             if (nhanVien) {
                 return {
@@ -54,8 +57,8 @@ class NhanVienService {
                 "taiKhoan": taiKhoan,
                 "matKhau": matKhau,
                 "ten": ten,
-                "avatar": avatar,
-                "ngaySinh": ngaySinh,
+                "avatar": filePath,
+                "ngaySinh": ngaySinhTemp,
                 "soDienThoai": soDienThoai,
                 "phongBan": phongBan,
                 "truongPhong": truongPhong
@@ -72,7 +75,7 @@ class NhanVienService {
         }
     }
 
-    static updateNhanVien = async ({ id, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static updateNhanVien = async ({ id, oldMatKhau, newMatKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
             const nhanVien = await nhanVienModel.findById(id)
 
@@ -83,24 +86,36 @@ class NhanVienService {
                 }
             }
 
-            if (!matKhau)
-                nhanVien.matKhau = matKhau
+            if (oldMatKhau && newMatKhau) {
+                if (oldMatKhau != nhanVien.matKhau) {
+                    return {
+                        success: false,
+                        message: "wrong old password"
+                    }
+                }
+                else
+                    nhanVien.matKhau = newMatKhau
+            }
 
-            if (!ten)
+            if (ten)
                 nhanVien.ten = ten
+
             //if (!avatar)
             // nhanVien.avatar = avatar
 
-            if (!ngaySinh)
-                nhanVien.ngaySinh = ngaySinh
+            if (ngaySinh) {
+                const time = ngaySinh.split('/')
+                const ngaySinhTemp = new Date(time[2], time[1] - 1, time[0])
+                nhanVien.ngaySinh = ngaySinhTemp
+            }
 
-            if (!soDienThoai)
+            if (soDienThoai)
                 nhanVien.soDienThoai = soDienThoai
 
-            if (!phongBan)
+            if (phongBan)
                 nhanVien.phongBan = phongBan
 
-            if (!truongPhong)
+            if (truongPhong != undefined)
                 nhanVien.truongPhong = truongPhong
 
             const savedNhanVien = await nhanVien.save()

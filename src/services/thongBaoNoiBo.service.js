@@ -5,7 +5,8 @@ const _ = require('lodash');
 class ThongBaoNoiBoService {
     static getAllThongBao = async () => {
         try {
-            const thongBao = await thongBaoNoiBoModel.find({}).populate('nhanVienId')
+            const thongBao = await thongBaoNoiBoModel.find({})
+            // const thongBao = await thongBaoNoiBoModel.find({}).populate('nhanVienId')
 
             return thongBao.map(tb =>
                 getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung' , 'createdAt'], object: tb })
@@ -21,7 +22,7 @@ class ThongBaoNoiBoService {
 
     static getThongBaoById = async ({ id }) => {
         try {
-            const thongBao = await thongBaoNoiBoModel.findById(id).populate('nhanVienId')
+            const thongBao = await thongBaoNoiBoModel.findById(id)
 
             if (!thongBao) {
                 return {
@@ -41,7 +42,7 @@ class ThongBaoNoiBoService {
 
     static addThongBao = async ({ nhanVienId, ten, noiDung }) => {
         try {
-            const thongBao = await thongBaoNoiBoModel.find({ ten: ten })
+            const thongBao = await thongBaoNoiBoModel.findOne({ ten: ten })
 
             if (thongBao) {
                 return {
@@ -58,7 +59,7 @@ class ThongBaoNoiBoService {
 
             const savedThongBao = await newThongBao.save()
 
-            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung'], object: savedThongBao })
+            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung','createdAt'], object: savedThongBao })
         } catch (error) {
             return {
                 success: false,
@@ -78,15 +79,15 @@ class ThongBaoNoiBoService {
                 }
             }
 
-            if (!ten)
+            if (ten)
                 thongBao.ten = ten
 
-            if (!noiDung)
+            if (noiDung)
                 thongBao.noiDung = noiDung
 
             const savedThongBao = await thongBao.save()
 
-            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung'], object: savedThongBao })
+            return getData({ fields: ['_id', 'ten', 'nhanVienId', 'noiDung','createdAt'], object: savedThongBao })
         } catch (error) {
             return {
                 success: false,
