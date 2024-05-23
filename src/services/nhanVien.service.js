@@ -45,11 +45,19 @@ class NhanVienService {
             const ngaySinhTemp = new Date(time[2], time[1] - 1, time[0])
 
             const nhanVien = await nhanVienModel.findOne({ taiKhoan: taiKhoan })
+            const emailExist = await nhanVienModel.findOne({ email: email })
 
             if (nhanVien) {
                 return {
                     success: false,
                     message: "username exists"
+                }
+            }
+
+            if (emailExist) {
+                return {
+                    success: false,
+                    message: "email exists"
                 }
             }
 
@@ -79,6 +87,15 @@ class NhanVienService {
     static updateNhanVien = async (file, { id, oldMatKhau, newMatKhau, ten, ngaySinh, soDienThoai,email, phongBan, truongPhong }) => {
         try {
             const nhanVien = await nhanVienModel.findById(id)
+
+            const emailExist = await nhanVienModel.findOne({ email: email })
+
+            if (emailExist) {
+                return {
+                    success: false,
+                    message: "email exists"
+                }
+            }
 
             if (!nhanVien) {
                 return {

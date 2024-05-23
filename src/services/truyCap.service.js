@@ -52,11 +52,38 @@ class TruyCapService {
 
             const quenMatKhau = await quenMatKhauModel.findOne({email: email})
 
-            console.log(quenMatKhau)
-            if(quenMatKhau){    
+            if(quenMatKhau){  
+                await quenMatKhauModel.findOneAndDelete({email: email})
+                
+                let transporter = nodemailer.createTransport({
+                    host: "smtp.gmail.com",
+                    port: 465,
+                    secure: true, 
+                    auth: {
+                        user: "testqlda123@gmail.com", 
+                        pass: "yovx ahdd odtc tjdg", 
+                    },
+                });
+    
+                let info = await transporter.sendMail({
+                    from: 'testqlda123@gmail.com',
+                    to: `${email}`,
+                    subject: "Mã xác nhận",
+                    html: `
+                    <h1>Mã xác nhận của bạn là: ${code}</h1>
+                    `,
+                })
+
+                const newQuenMatKhau = new quenMatKhauModel({
+                    "email": email,
+                    "code": code,
+                })
+    
+                await newQuenMatKhau.save()
+
                 return {
-                    success: false,
-                    message: "previously sent email"
+                    success: true,
+                    message: "confirmation code sent"
                 }
             }
             else{
@@ -73,9 +100,9 @@ class TruyCapService {
                 let info = await transporter.sendMail({
                     from: 'testqlda123@gmail.com',
                     to: `${email}`,
-                    subject: "Code xác nhận của bạn",
+                    subject: "Mã xác nhận",
                     html: `
-                    <h1>Code xác nhận của bạn là: ${code}</h1>
+                    <h1>Mã xác nhận của bạn là: ${code}</h1>
                     `,
                 })
 
