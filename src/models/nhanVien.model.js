@@ -30,6 +30,10 @@ var nhanVienSchema = new Schema({
         type: Date,
         required: true
     },
+    email:{
+        type: String,
+        required: true
+    },
     soDienThoai: {
         type: String,
         required: true

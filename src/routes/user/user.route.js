@@ -5,9 +5,6 @@ const phongHopController = require('../../controllers/phongHop.controller')
 const thongBaoNoiBoController = require('../../controllers/thongBaoNoiBo.controller')
 const yeuCauController = require('../../controllers/yeuCau.controller')
 const yeuCauHandleController = require('../../controllers/yeuCauHandle.controller')
-// const multer = require('multer')
-// const cloudinary = require('../../configs/config.cloudinary')
-// const upload = multer({ dest: 'uploads/' })
 
 const uploader = require('../../configs/config.cloudinary.js')
 
@@ -15,6 +12,12 @@ const router = express.Router()
 
 //DANGNHAP
 router.get('/login', truyCapController.login)
+
+//FORGOTPASSWORD
+router.post('/forgotPassword', truyCapController.forgotPassword)
+
+//CONFIRMCODE
+router.post('/confirmCode', truyCapController.confirmCode)
 
 //NHANVIEN
 //[GET] Lay nhan vien theo id

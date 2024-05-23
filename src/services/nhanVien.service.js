@@ -39,8 +39,9 @@ class NhanVienService {
         }
     }
 
-    static addNhanVien = async (filePath, { taiKhoan, matKhau, ten, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static addNhanVien = async (file, { taiKhoan, matKhau,email, ten, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
+            console.log(file)
             const time = ngaySinh.split('/')
             const ngaySinhTemp = new Date(time[2], time[1] - 1, time[0])
 
@@ -57,16 +58,17 @@ class NhanVienService {
                 "taiKhoan": taiKhoan,
                 "matKhau": matKhau,
                 "ten": ten,
-                "avatar": filePath,
+                "avatar": file?file.path:undefined,
                 "ngaySinh": ngaySinhTemp,
                 "soDienThoai": soDienThoai,
                 "phongBan": phongBan,
-                "truongPhong": truongPhong
+                "truongPhong": truongPhong,
+                email
             })
 
             const savedNhanVien = await newNhanVien.save()
 
-            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: savedNhanVien })
+            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai','email', 'phongBan', 'truongPhong'], object: savedNhanVien })
         } catch (error) {
             return {
                 success: false,
@@ -75,7 +77,7 @@ class NhanVienService {
         }
     }
 
-    static updateNhanVien = async (filePath, { id, oldMatKhau, newMatKhau, ten, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static updateNhanVien = async (file, { id, oldMatKhau, newMatKhau, ten, ngaySinh, soDienThoai,email, phongBan, truongPhong }) => {
         try {
             const nhanVien = await nhanVienModel.findById(id)
 
@@ -100,8 +102,8 @@ class NhanVienService {
             if (ten)
                 nhanVien.ten = ten
 
-            if (filePath)
-                nhanVien.avatar = filePath
+            if (file)
+                nhanVien.avatar = file.path
 
             if (ngaySinh) {
                 const time = ngaySinh.split('/')
@@ -112,6 +114,9 @@ class NhanVienService {
             if (soDienThoai)
                 nhanVien.soDienThoai = soDienThoai
 
+            if (email)
+                nhanVien.email = email
+
             if (phongBan)
                 nhanVien.phongBan = phongBan
 
@@ -120,7 +125,7 @@ class NhanVienService {
 
             const savedNhanVien = await nhanVien.save()
 
-            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: savedNhanVien })
+            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai','email', 'phongBan', 'truongPhong'], object: savedNhanVien })
         } catch (error) {
             return {
                 success: false,
