@@ -27,7 +27,7 @@ router.get('/getAllNhanVien', NhanVienController.getAllNhanVien)
 router.post('/addNhanVien', uploader.single('avatar'), NhanVienController.addNhanVien)
 
 //[PUT] Sua nhan vien
-router.put('/updateNhanVien', NhanVienController.updateNhanVien)
+router.put('/updateNhanVien',uploader.single('avatar'),  NhanVienController.updateNhanVien)
 
 //[DELETE] Xoa nhan vien
 router.delete('/deleteNhanVien', NhanVienController.deleteNhanVien)

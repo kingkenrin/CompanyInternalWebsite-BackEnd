@@ -17,10 +17,11 @@ var thongBaoNoiBoSchema = new Schema({
         type: String,
         required: true,
     },
-    // ngayThongBao: {
-    //     type: Date,
-    //     required: true,
-    // },
+    type: {
+        type: String,
+        required: true,
+        enum: ["Chung", "PhongHop","Nghi"]
+    },
 }, {
     timestamps: true,
     collection: COLLECTION_NAME

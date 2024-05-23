@@ -39,7 +39,7 @@ class NhanVienService {
         }
     }
 
-    static addNhanVien = async (filePath, { taiKhoan, matKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static addNhanVien = async (filePath, { taiKhoan, matKhau, ten, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
             const time = ngaySinh.split('/')
             const ngaySinhTemp = new Date(time[2], time[1] - 1, time[0])
@@ -75,7 +75,7 @@ class NhanVienService {
         }
     }
 
-    static updateNhanVien = async ({ id, oldMatKhau, newMatKhau, ten, avatar, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
+    static updateNhanVien = async (filePath, { id, oldMatKhau, newMatKhau, ten, ngaySinh, soDienThoai, phongBan, truongPhong }) => {
         try {
             const nhanVien = await nhanVienModel.findById(id)
 
@@ -100,8 +100,8 @@ class NhanVienService {
             if (ten)
                 nhanVien.ten = ten
 
-            //if (!avatar)
-            // nhanVien.avatar = avatar
+            if (filePath)
+                nhanVien.avatar = filePath
 
             if (ngaySinh) {
                 const time = ngaySinh.split('/')

@@ -40,7 +40,7 @@ class ThongBaoNoiBoService {
         }
     }
 
-    static addThongBao = async ({ nhanVienId, ten, noiDung }) => {
+    static addThongBao = async ({ nhanVienId, ten, noiDung, type }) => {
         try {
             const thongBao = await thongBaoNoiBoModel.findOne({ ten: ten })
 
@@ -54,7 +54,8 @@ class ThongBaoNoiBoService {
             const newThongBao = new thongBaoNoiBoModel({
                 ten,
                 nhanVienId, 
-                noiDung
+                noiDung,
+                type
             })
 
             const savedThongBao = await newThongBao.save()
@@ -68,7 +69,7 @@ class ThongBaoNoiBoService {
         }
     }
 
-    static updateThongBao = async ({ id, ten, noiDung }) => {
+    static updateThongBao = async ({ id, ten, noiDung, type }) => {
         try {
             const thongBao = await thongBaoNoiBoModel.findById(id)
 
@@ -83,6 +84,9 @@ class ThongBaoNoiBoService {
                 thongBao.ten = ten
 
             if (noiDung)
+                thongBao.noiDung = noiDung
+
+            if (type)
                 thongBao.noiDung = noiDung
 
             const savedThongBao = await thongBao.save()
