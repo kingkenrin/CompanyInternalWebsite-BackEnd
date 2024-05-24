@@ -140,7 +140,6 @@ class TruyCapService {
 
             if (quenMatKhau.code == code) {
                 const quenMatKhau = await quenMatKhauModel.findOneAndDelete({email: email})
-
                 let transporter = nodemailer.createTransport({
                     host: "smtp.gmail.com",
                     port: 465,

@@ -11,7 +11,7 @@ const uploader = require('../../configs/config.cloudinary.js')
 const router = express.Router()
 
 //DANGNHAP
-router.get('/login', truyCapController.login)
+router.post('/login', truyCapController.login)
 
 //FORGOTPASSWORD
 router.post('/forgotPassword', truyCapController.forgotPassword)
