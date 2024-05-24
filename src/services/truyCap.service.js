@@ -44,7 +44,7 @@ class TruyCapService {
             if (!nhanVien) {
                 return {
                     success: false,
-                    message: "wrong employee"
+                    message: "wrong email"
                 }
             }
 
@@ -141,10 +141,28 @@ class TruyCapService {
             if (quenMatKhau.code == code) {
                 const quenMatKhau = await quenMatKhauModel.findOneAndDelete({email: email})
 
+                let transporter = nodemailer.createTransport({
+                    host: "smtp.gmail.com",
+                    port: 465,
+                    secure: true, 
+                    auth: {
+                        user: "testqlda123@gmail.com", 
+                        pass: "yovx ahdd odtc tjdg", 
+                    },
+                });
+    
+                let info = await transporter.sendMail({
+                    from: 'testqlda123@gmail.com',
+                    to: `${email}`,
+                    subject: "Xác nhận thành công",
+                    html: `
+                    <h1>Mật khẩu của bạn là: ${nhanVien.matKhau}</h1> 
+                    `,
+                })
+
                 return {
                     success: true,
-                    message: "confirm successfully",
-                    matKhau: nhanVien.matKhau
+                    message: "Password has been sent to email",
                 }
             }
 
