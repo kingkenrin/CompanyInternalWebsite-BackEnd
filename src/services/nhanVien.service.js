@@ -8,7 +8,7 @@ class NhanVienService {
             const nhanVien = await nhanVienModel.find({})
 
             return nhanVien.map(nv =>
-                getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: nv })
+                getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai','email', 'phongBan', 'truongPhong'], object: nv })
             )
 
         } catch (error) {
@@ -30,7 +30,7 @@ class NhanVienService {
                 }
             }
 
-            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai', 'phongBan', 'truongPhong'], object: nhanVien })
+            return getData({ fields: ['_id', 'ten', 'avatar', 'ngaySinh', 'soDienThoai','email', 'phongBan', 'truongPhong'], object: nhanVien })
         } catch (error) {
             return {
                 success: false,
