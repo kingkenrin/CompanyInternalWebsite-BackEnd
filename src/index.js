@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors"); 
 
 const route = require('./routes')
 
@@ -14,6 +15,7 @@ app.use(express.json()) //json nhu fetch, axious
 
 // HTTP logger
 app.use(morgan("combined"))
+app.use(cors())
 
 require('./databases/init.mongodb')
 

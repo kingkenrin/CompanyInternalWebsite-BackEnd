@@ -61,7 +61,7 @@ class TruyCapService {
                     secure: true, 
                     auth: {
                         user: "testqlda123@gmail.com", 
-                        pass: "yovx ahdd odtc tjdg", 
+                        pass: "klfv luxp iecv jgbv", 
                     },
                 });
     
@@ -93,7 +93,7 @@ class TruyCapService {
                     secure: true, 
                     auth: {
                         user: "testqlda123@gmail.com", 
-                        pass: "yovx ahdd odtc tjdg", 
+                        pass: "klfv luxp iecv jgbv", 
                     },
                 });
     
@@ -146,7 +146,7 @@ class TruyCapService {
                     secure: true, 
                     auth: {
                         user: "testqlda123@gmail.com", 
-                        pass: "yovx ahdd odtc tjdg", 
+                        pass: "klfv luxp iecv jgbv", 
                     },
                 });
     
