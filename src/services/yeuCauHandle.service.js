@@ -5,7 +5,10 @@ const _ = require('lodash');
 class YeuCauHandleService {
     static getAllYeuCauHandle = async () => {
         try {
-            const yeuCauHandle = await yeuCauHandleModel.find({}).populate('yeuCauId')
+            const yeuCauHandle = await yeuCauHandleModel.find({}).populate('yeuCauId').populate({
+                path: "nhanVienId",
+                select: '_id ten'
+            })
 
             return yeuCauHandle.map(yc =>
                 getData({ fields: ['_id', 'yeuCauId', 'nhanVienId','noiDung', 'pheDuyet', 'phanHoi'], object: yc })
