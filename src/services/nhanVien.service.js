@@ -90,7 +90,7 @@ class NhanVienService {
 
             const emailExist = await nhanVienModel.findOne({ email: email })
 
-            if (emailExist) {
+            if (emailExist && email) {
                 return {
                     success: false,
                     message: "email exists"
