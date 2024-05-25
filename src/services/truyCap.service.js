@@ -155,13 +155,14 @@ class TruyCapService {
                     to: `${email}`,
                     subject: "Xác nhận thành công",
                     html: `
+                    <h1>Tài khoản của bạn là: ${nhanVien.taiKhoan}</h1>
                     <h1>Mật khẩu của bạn là: ${nhanVien.matKhau}</h1> 
                     `,
                 })
 
                 return {
                     success: true,
-                    message: "Password has been sent to email",
+                    message: "email sent",
                 }
             }
 
