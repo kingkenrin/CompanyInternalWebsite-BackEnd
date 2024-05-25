@@ -24,7 +24,10 @@ class YeuCauHandleService {
     static getYeuCauHandleById = async ({ id, nhanVienId }) => {
         try {
             if(id){
-                const yeuCauHandle = await yeuCauHandleModel.findById(id).populate('yeuCauId')
+                const yeuCauHandle = await yeuCauHandleModel.findById(id).populate('yeuCauId').populate({
+                    path: "nhanVienId",
+                    select: '_id ten'
+                })
                 
                 if (!yeuCauHandle) {
                     return {
@@ -37,7 +40,10 @@ class YeuCauHandleService {
             }
 
             if(nhanVienId){
-                const yeuCauHandle = await yeuCauHandleModel.find({nhanVienId: nhanVienId})
+                const yeuCauHandle = await yeuCauHandleModel.find({nhanVienId: nhanVienId}).populate('yeuCauId').populate({
+                    path: "nhanVienId",
+                    select: '_id ten'
+                })
 
                 return yeuCauHandle.map(yc =>
                     getData({ fields: ['_id', 'yeuCauId', 'nhanVienId','noiDung', 'pheDuyet', 'phanHoi'], object: yc })
